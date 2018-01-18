@@ -1,0 +1,92 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <s:String x:Key="Language_Name">简体中文(zh-cn)</s:String>
+    <!-- 主界面  -->
+    <s:String x:Key="Windows_Title">工厂助手</s:String>
+    <s:String x:Key="Windows_True">是</s:String>
+    <s:String x:Key="Windows_False">否</s:String>
+    <!-- 游戏信息(GameInfo)  -->
+    <s:String x:Key="Table_GameInfo">Game Info</s:String>
+    <s:String x:Key="GameInfoTable_Game_Status_Lable">当前游戏状态</s:String>
+    <s:String x:Key="GameInfoTable_Game_Status_On">游戏正在运行</s:String>
+    <s:String x:Key="GameInfoTable_Game_Status_Off">游戏未运行</s:String>
+    <s:String x:Key="GameInfoTable_Kill_Game">强制退出游戏</s:String>
+    <s:String x:Key="GameInfoTable_Game_Version">当前游戏版本</s:String>
+    <s:String x:Key="GameInfoTable_Chinese_Input_Lable">中文输入辅助状态</s:String>
+    <s:String x:Key="GameInfoTable_Chinese_Input_Status_On">已开启中文输入辅助</s:String>
+    <s:String x:Key="GameInfoTable_Chinese_Input_Status_Off">未开启中文输入辅助</s:String>
+    <s:String x:Key="GameInfoTable_Chinese_Input_Button_On">关闭中文输入辅助</s:String>
+    <s:String x:Key="GameInfoTable_Chinese_Input_Button_Off">开启中文输入辅助</s:String>
+    <s:String x:Key="GameInfoTable_Open_Game_Data_Folder">打开游戏数据文件夹</s:String>
+    <s:String x:Key="GameInfoTable_Open_Game_Mod_Folder">打开mods文件夹</s:String>
+    <!-- Mods信息(Mods)  -->
+    <s:String x:Key="ModsTable_Name">Mods信息</s:String>
+    <s:String x:Key="ModsTable_ModsListLable">Mods列表</s:String>
+    <s:String x:Key="ModsTable_ModsListFlushButton">刷新Mods列表</s:String>
+    <s:String x:Key="ModsTable_ModsInfoLable">Mod 信息</s:String>
+    <s:String x:Key="ModsTable_ModsInfoReadInfo">读取此mod信息</s:String>
+    <s:String x:Key="ModsTable_ModsInfoNotSelect">请选择mods</s:String>
+    <s:String x:Key="ModsTable_ModsInfoName">名称</s:String>
+    <s:String x:Key="ModsTable_ModsInfoTitle">标题</s:String>
+    <s:String x:Key="ModsTable_ModsInfoVersion">版本</s:String>
+    <s:String x:Key="ModsTable_ModsInfoAuther">作者</s:String>
+    <s:String x:Key="ModsTable_ModsInfoHomePage">详情页面</s:String>
+    <s:String x:Key="ModsTable_ModsInfoDescription">简介</s:String>
+    <s:String x:Key="ModsTable_ModsInfoClaimVersion">最低要求版本</s:String>
+    <s:String x:Key="ModsTable_ModsInfoDependencies">依赖关系</s:String>
+
+    <!-- 地图信息(Maps)  -->
+    <s:String x:Key="MapsTable_Name">地图信息</s:String>
+    <s:String x:Key="MapsTable_ModsListLable">地图列表</s:String>
+    <s:String x:Key="MapsTable_ModsListFlushButton">刷新地图列表</s:String>
+    <s:String x:Key="MapsTable_MapsInfoReadInfo">读取此地图信息</s:String>
+    <s:String x:Key="MapsTable_MapsInfoNotSelect">请选择一个地图</s:String>
+    <s:String x:Key="MapsTable_MapsInfoName">地图名称</s:String>
+    <s:String x:Key="MapsTable_MapsInfoVersion">地图版本</s:String>
+    <s:String x:Key="MapsTable_MapsInfoDifficulty">地图难度</s:String>
+    <s:String x:Key="MapsTable_MapsInfoMods">使用的Mods</s:String>
+    <s:String x:Key="MapsTable_MapsInfoPreview">地图预览</s:String>
+    <s:String x:Key="MapsTable_MapsInfoClaimVersion">最低要求版本</s:String>
+    <s:String x:Key="MapsTable_MapsInfoDependencies">依赖关系</s:String>
+
+    <!-- 开服助手(ServerHelper)  -->
+    <s:String x:Key="ServerHelperTable_Name">Server Helper</s:String>
+    <s:String x:Key="ServerHelperTable_ServerName">Server Name</s:String>
+    <s:String x:Key="ServerHelperTable_ServerTag">Server Tag</s:String>
+    <s:String x:Key="ServerHelperTable_ServerUsername">Username</s:String>
+    <s:String x:Key="ServerHelperTable_ServerGamePassword">Game Password</s:String>
+    <s:String x:Key="ServerHelperTable_ServerMaxUpload">Max Upload(KB/S)</s:String>
+    <s:String x:Key="ServerHelperTable_ServerMinLatecy">MinLatecy</s:String>
+    <s:String x:Key="ServerHelperTable_ServerAutoSaveTime">Auto Save Time</s:String>
+    <s:String x:Key="ServerHelperTable_ServerAutoSaveSolts">Auto Save Solts</s:String>
+    <s:String x:Key="ServerHelperTable_ServerAutoMaxAFKTime">Max AFK Time(min)</s:String>
+    <s:String x:Key="ServerHelperTable_ServerAdminPlayers">Admin Players</s:String>
+    <s:String x:Key="ServerHelperTable_ServerDescription">Description</s:String>
+    <s:String x:Key="ServerHelperTable_ServerMaxPlayers">Max Players</s:String>
+    <s:String x:Key="ServerHelperTable_ServerPassword">Password</s:String>
+    <s:String x:Key="ServerHelperTable_ServerToken">Auth Token</s:String>
+    <s:String x:Key="ServerHelperTable_ServerAdminPause">Allow non-admin pause game</s:String>
+    <s:String x:Key="ServerHelperTable_ServerGenuineCheck">是否开启正版验证</s:String>
+    <s:String x:Key="ServerHelperTable_ServerAllow_Commands">是否允许输入命令</s:String>
+    <s:String x:Key="ServerHelperTable_ServerVisibilityLAN">是否允许在局域网中搜索到</s:String>
+    <s:String x:Key="ServerHelperTable_ServerVisibilityPuclic">是否允许在公共服务器中搜索到</s:String>
+    <s:String x:Key="ServerHelperTable_ServerIsMaxPlayers">玩家人数满以后是否允许继续加入</s:String>
+    <s:String x:Key="ServerHelperTable_ServerAutoPause">是否自动暂停服务器</s:String>
+    <s:String x:Key="ServerHelperTable_ServerAutoSave">是否自动保存</s:String>
+    <s:String x:Key="ServerHelperTable_LoadConfig">Read Config</s:String>
+    <s:String x:Key="ServerHelperTable_SaveConfig">Saving Config</s:String>
+    <s:String x:Key="ServerHelperTable_StartServer">Start Server</s:String>
+    <s:String x:Key="ServerHelperTable_StopServer">Stop Server</s:String>
+    <s:String x:Key="ServerHelperTable_ResetConfig">Reset Config</s:String>
+    <s:String x:Key="ServerHelperTable_GetHelp">Get Help</s:String>
+
+
+
+    <!-- 设置(Setting)  -->
+    <s:String x:Key="SettingTable_Name">设置</s:String>
+    <s:String x:Key="SettingTable_Select_Language_Lable">选择语言</s:String>
+    <s:String x:Key="SettingTable_Save_Button">保存设置</s:String>
+    <!-- 关于(ABout)  -->
+    <s:String x:Key="AboutTable_Name">关于</s:String>
+</ResourceDictionary>

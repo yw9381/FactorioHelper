@@ -1,0 +1,167 @@
+﻿<Window x:Name="MainWindow1" x:Class="FactorioHelper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FactorioHelper"
+        mc:Ignorable="d"
+        Title="{DynamicResource Windows_Title}" Height="480" Width="640" Loaded="MainWindow1_Loaded" MaxWidth="640" MaxHeight="480" MinWidth="640" MinHeight="480">
+
+    <TabControl x:Name="MainTab" HorizontalAlignment="Left" Height="449" VerticalAlignment="Top" Width="632" Background="#FFE5E5E5">
+        <TabItem x:Name="Table_GameInfo" Header="{DynamicResource Table_GameInfo}">
+            <Grid Background="#FFE5E5E5">
+                <Label x:Name="GameInfo_GameStatusText" Content="{DynamicResource GameInfo_GameStatusText}" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="159"/>
+                <Label x:Name="GameInfo_GameStatus" Content="{DynamicResource GameInfo_GameStatusOff}" HorizontalAlignment="Left" Margin="169,23,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="GameInfo_KillGame" Content="{DynamicResource GameInfo_KillGame}" HorizontalAlignment="Left" Margin="324,26,0,0" VerticalAlignment="Top" Width="122" Click="GameInfoTable_KillGameButton_Click"/>
+                <Label x:Name="GameInfo_GameVersionText" Content="{DynamicResource GameInfo_GameVersionText}" HorizontalAlignment="Left" Margin="0,48,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="159"/>
+                <Label x:Name="GameInfo_GameVersion" Content="GameVersion" HorizontalAlignment="Left" Margin="169,48,0,0" VerticalAlignment="Top" Foreground="#FF000CFF"/>
+                <Label x:Name="GameInfo_ChineseInputText" Content="{DynamicResource GameInfo_ChineseInputText}" HorizontalAlignment="Left" Margin="0,73,0,0" VerticalAlignment="Top" Width="159" HorizontalContentAlignment="Right"/>
+                <Label x:Name="GameInfo_ChineseInputStatus" Content="{DynamicResource GameInfo_ChineseInputStatusOff}" HorizontalAlignment="Left" Margin="169,73,0,0" VerticalAlignment="Top" Foreground="Blue"/>
+                <Button x:Name="GameInfo_ChineseInputButton" Content="{DynamicResource GameInfo_ChineseInputButtonOff}" HorizontalAlignment="Left" Margin="324,76,0,0" VerticalAlignment="Top" Width="122" Click="GameInfo_ChineseInputButton_Click"/>
+                <Button x:Name="GameInfo_OpenGameDataButton" Content="{DynamicResource GameInfo_Open_Game_Data_Folder}" HorizontalAlignment="Left" Margin="222,146,0,0" VerticalAlignment="Top" Width="160" Height="30" Click="GameInfo_OpenGameDataButton_Click"/>
+            </Grid>
+        </TabItem>
+        <TabItem x:Name="Table_ModManage" Header="{DynamicResource Table_ModManage}">
+            <Grid Background="#FFE5E5E5">
+                <Button x:Name="ModManage_Flush"  Content="{DynamicResource ModManage_Flush}" HorizontalAlignment="Left" Margin="395,21,0,0" VerticalAlignment="Top" Width="75" Click="ModManage_Flush_Click"/>
+                <Button x:Name="ModManage_OpenModFolderBtn" Content="{DynamicResource ModManage_OpenModFolder}" HorizontalAlignment="Left" Margin="486,21,0,0" VerticalAlignment="Top" Width="114" Click="ModManage_OpenModFolderBtn_Click"/>
+                <ListView x:Name="ModManage_ListView" Margin="10,74,10,41">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="gvc" Width="30">
+                                <GridViewColumn.Header>
+                                    <CheckBox></CheckBox>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Uid}"></CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="文件名" Width="100" DisplayMemberBinding="{Binding name}"/>
+                            <GridViewColumn Header="Mod名称" Width="120" DisplayMemberBinding="{Binding title}"/>
+                            <GridViewColumn Header="Mod版本" Width="70" DisplayMemberBinding="{Binding version}"/>
+                            <GridViewColumn Header="文本库汉化" Width="70" DisplayMemberBinding="{Binding chineseVersion}"/>
+                            <GridViewColumn Header="支持游戏版本" Width="90" DisplayMemberBinding="{Binding factorio_version}"/>
+                            <GridViewColumn Header="描述" Width="200"  DisplayMemberBinding="{Binding description}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StatusBar DockPanel.Dock="Bottom" HorizontalAlignment="Left" Height="26" Margin="10,386,0,0" VerticalAlignment="Top" Width="606">
+                    <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                    </StatusBar.ItemsPanel>
+                    <StatusBarItem>
+                        <TextBlock Name="lblCursorPosition" />
+                    </StatusBarItem>
+                    <Separator Grid.Column="1" />
+                    <StatusBarItem Grid.Column="2">
+                        <TextBlock Text="c:\path\of\current\file.txt" />
+                    </StatusBarItem>
+                    <Separator Grid.Column="3" />
+                    <StatusBarItem Grid.Column="4">
+                        <ProgressBar Value="50" Width="90" Height="16" />
+                    </StatusBarItem>
+                </StatusBar>
+                <Label Content="{DynamicResource ModManage_Help}" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="275"/>
+
+
+            </Grid>
+        </TabItem>
+        <TabItem Header="{DynamicResource Table_Maps}">
+            <Grid Background="#FFE5E5E5">
+
+            </Grid>
+        </TabItem>
+
+
+        <TabItem Header="{DynamicResource Table_SererHelper}">
+            <Grid Background="#FFE5E5E5">
+                <Label Content="{DynamicResource ServerHelper_ServerName}" Margin="16,5,490,0" VerticalAlignment="Top" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerNameTextBox" HorizontalAlignment="Left" Height="25" Margin="141,5,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="165" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerTag}" HorizontalAlignment="Left" Margin="16,35,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerTagTextBox" HorizontalAlignment="Left" Height="25" Margin="141,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="165" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerUsername}" HorizontalAlignment="Left" Margin="16,65,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerUsernameTextBox" HorizontalAlignment="Left" Height="25" Margin="141,65,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" RenderTransformOrigin="0.558,0.696" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerGamePassword}" HorizontalAlignment="Left" Margin="16,155,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerGamePasswordTextBox" HorizontalAlignment="Left" Height="25" Margin="141,155,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerMaxUpload}" HorizontalAlignment="Left" Margin="16,185,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerMaxUploadTextBox" HorizontalAlignment="Left" Height="25" Margin="141,185,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerMinLatecy}" HorizontalAlignment="Left" Margin="16,215,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerMinLatecyTextBox" HorizontalAlignment="Left" Height="25" Margin="141,215,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerAutoSaveTime}" HorizontalAlignment="Left" Margin="16,245,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerAutoSaveTimeTextBox" HorizontalAlignment="Left" Height="25" Margin="141,245,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerAutoSaveSolts}" HorizontalAlignment="Left" Margin="16,275,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <ComboBox x:Name="ServerHelper_ServerAutoSaveSoltsComboBox" HorizontalAlignment="Left" Margin="141,275,0,0" VerticalAlignment="Top" Width="164" SelectedIndex="2" Height="25" VerticalContentAlignment="Center">
+                    <ListBoxItem Content="1"/>
+                    <ListBoxItem Content="2"/>
+                    <ListBoxItem Content="3"/>
+                    <ListBoxItem Content="4"/>
+                    <ListBoxItem Content="5"/>
+                </ComboBox>
+                <Label Content="{DynamicResource ServerHelper_ServerAutoMaxAFKTime}" HorizontalAlignment="Left" Margin="16,305,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right"/>
+                <TextBox x:Name="ServerHelper_ServerAutoMaxAFKTimeTextBox" HorizontalAlignment="Left" Height="25" Margin="141,305,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerAdminPlayers}" HorizontalAlignment="Left" Margin="16,335,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerAdminPlayersTextBox" HorizontalAlignment="Left" Height="25" Margin="141,335,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerDescription}" HorizontalAlignment="Left" Margin="344,35,0,0" VerticalAlignment="Top" Width="260" Height="25" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerDescriptionTextBox" HorizontalAlignment="Left" Height="55" Margin="344,65,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="260" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                <Label Content="{DynamicResource ServerHelper_ServerMaxPlayers}" HorizontalAlignment="Left" Margin="344,5,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerMaxPlayersTextBox" HorizontalAlignment="Left" Height="25" Margin="469,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerPassword}" HorizontalAlignment="Left" Margin="16,95,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerPasswordTextBox" HorizontalAlignment="Left" Height="25" Margin="141,95,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" VerticalContentAlignment="Center"/>
+                <Label Content="{DynamicResource ServerHelper_ServerToken}" HorizontalAlignment="Left" Margin="16,125,0,0" VerticalAlignment="Top" Width="120" Height="25" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ServerHelper_ServerTokenTextBox" HorizontalAlignment="Left" Height="25" Margin="141,125,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" VerticalContentAlignment="Center"/>
+                <CheckBox x:Name="ServerHelper_ServerAdminPause" Content="{DynamicResource ServerHelper_ServerAdminPause}" HorizontalAlignment="Left" Margin="344,125,0,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" Width="260"/>
+                <CheckBox x:Name="ServerHelper_ServerGenuineCheck" Content="{DynamicResource ServerHelper_ServerGenuineCheck}" HorizontalAlignment="Left" Margin="344,155,0,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" Width="260"/>
+                <CheckBox x:Name="ServerHelper_ServerAllow_Commands" Content="{DynamicResource ServerHelper_ServerAllow_Commands}" HorizontalAlignment="Left" Margin="344,185,0,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" Width="260"/>
+                <CheckBox x:Name="ServerHelper_ServerVisibilityLAN" Content="{DynamicResource ServerHelper_ServerVisibilityLAN}" HorizontalAlignment="Left" Margin="344,215,0,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" Width="260"/>
+                <CheckBox x:Name="ServerHelper_ServerVisibilityPuclic" Content="{DynamicResource ServerHelper_ServerVisibilityPuclic}" HorizontalAlignment="Left" Margin="344,245,0,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" Width="260"/>
+                <CheckBox x:Name="ServerHelper_ServerIsMaxPlayers" Content="{DynamicResource ServerHelper_ServerIsMaxPlayers}" HorizontalAlignment="Left" Margin="344,275,0,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" Width="260"/>
+                <CheckBox x:Name="ServerHelper_ServerAutoPause" Content="{DynamicResource ServerHelper_ServerAutoPause}" HorizontalAlignment="Left" Margin="344,305,0,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" Width="260"/>
+                <CheckBox x:Name="ServerHelper_ServerAutoSave" Content="{DynamicResource ServerHelper_ServerAutoSave}" HorizontalAlignment="Left" Margin="344,335,0,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" Width="260"/>
+                <Button x:Name="ServerHelper_LoadConfig" Content="{DynamicResource ServerHelper_LoadConfig}" HorizontalAlignment="Left" Margin="0,372,0,0" VerticalAlignment="Top" Width="120" Height="40"/>
+                <Button x:Name="ServerHelper_SaveConfig" Content="{DynamicResource ServerHelper_SaveConfig}" HorizontalAlignment="Left" Margin="125,372,0,0" VerticalAlignment="Top" Width="120" Height="40"/>
+                <Button x:Name="ServerHelper_StartServer" Content="{DynamicResource ServerHelper_StartServer}" HorizontalAlignment="Left" Margin="250,372,0,0" VerticalAlignment="Top" Width="120" Height="40"/>
+                <Button x:Name="ServerHelper_ResetConfig" Content="{DynamicResource ServerHelper_ResetConfig}" HorizontalAlignment="Left" Margin="375,372,0,0" VerticalAlignment="Top" Width="120" Height="40" Click="ServerHelper_ResetConfig_Click"/>
+                <Button x:Name="ServerHelper_GetHelp" Content="{DynamicResource ServerHelper_GetHelp}" HorizontalAlignment="Left" Margin="500,372,0,0" VerticalAlignment="Top" Width="120" Height="40"/>
+            </Grid>
+        </TabItem>
+
+
+        <TabItem x:Name="Chineseing" Header="{DynamicResource ModsChineseHelperTable_Name}"/>
+
+        <TabItem x:Name="SettigTable" Header="{DynamicResource SettingTable_Name}">
+            <Grid Background="#FFE5E5E5">
+                <ComboBox x:Name="LanguageSelect" HorizontalAlignment="Left" Margin="231,10,0,0" VerticalAlignment="Top" Width="198" SelectionChanged="LanguageSelect_SelectionChanged" HorizontalContentAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem Content="简体中文(zh-cn)"/>
+                    <ComboBoxItem Content="English(en-us)"/>
+                </ComboBox>
+                <Label x:Name="SettingLable_SelectLanguageLable" Content="{DynamicResource SettingTable_Select_Language_Lable}" HorizontalAlignment="Left" Margin="28,8,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="194"/>
+                <Button Content="{DynamicResource SettingTable_Save_Button}" HorizontalAlignment="Left" Margin="183,164,0,0" VerticalAlignment="Top" Width="153"/>
+                <Label Content="Label" HorizontalAlignment="Left" Margin="28,33,0,0" VerticalAlignment="Top" Width="194"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="231,33,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="198"/>
+            </Grid>
+        </TabItem>
+        <TabItem x:Name="AboutTable" Header="{DynamicResource AboutTable_Name}">
+            <Grid Background="#FFE5E5E5">
+            </Grid>
+        </TabItem>
+
+    </TabControl>
+</Window>
