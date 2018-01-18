@@ -67,16 +67,16 @@ namespace FactorioHelper
         {
             if (Process.GetProcessesByName("factorio").Length != 0)
             {
-                this.GameInfo_GameStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                this.GameInfo_GameStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
                 this.GameInfo_GameStatus.Content = LanguageResources["GameInfo_GameStatusOn"];
-                this.GameInfo_KillGame.Visibility = Visibility.Visible;
+                this.GameInfo_KillGame.IsEnabled = true;
                 this.GameStatus = true;
             }
             else
             {
-                this.GameInfo_GameStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
-                this.GameInfo_GameStatus.Content = LanguageResources["GameInfoTable_Game_Status_Off"];
-                this.GameInfo_KillGame.Visibility = Visibility.Hidden;
+                this.GameInfo_GameStatus.Foreground = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                this.GameInfo_GameStatus.Content = LanguageResources["GameInfo_GameStatusOff"];
+                this.GameInfo_KillGame.IsEnabled = false;
                 this.GameStatus = false;
             }
 
