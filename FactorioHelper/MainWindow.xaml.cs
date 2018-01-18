@@ -44,6 +44,12 @@ namespace FactorioHelper
         }
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
         {
+            // 检测游戏版本
+            Dictionary<string, object> PlayerData = Json.Deserialize(readJSONFile(GameDataPath + "player-data.json")) as Dictionary<string, object>;
+            PlayerData = PlayerData["last-played-version"] as Dictionary<string, object>;
+            String GameVersion = PlayerData["game_version"] as string;
+            this.GameInfo_GameVersion.Content = GameVersion;
+
             // 检测游戏状态
             DispatcherTimer GameStatusTimer = new DispatcherTimer()
             {
