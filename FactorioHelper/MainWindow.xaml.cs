@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,11 +17,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System.IO;
 using MiniJSON;
-
+using Hook;
+using System.Windows.Interop;
 
 namespace FactorioHelper
 {
@@ -28,19 +30,28 @@ namespace FactorioHelper
     {
         //public Version HelperVersion = new Version();
         ResourceDictionary LanguageResources = Application.Current.Resources;
-        bool ChineseInputStatus = true;
+        bool ChineseInputStatus = false;
         bool GameStatus = false;
-        string GameDataPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile) + "\\AppData\\Roaming\\Factorio\\";
-        string ModsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile) + "\\AppData\\Roaming\\Factorio\\mods\\";
-        string MapsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile) + "\\AppData\\Roaming\\Factorio\\saves\\";
+        string GameDataPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\AppData\\Roaming\\Factorio\\";
+        string ModsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\AppData\\Roaming\\Factorio\\mods\\";
+        string MapsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\AppData\\Roaming\\Factorio\\saves\\";
         string TempPath = System.IO.Path.GetTempPath().Replace("\\\\", "\\");
         string SelfPath = Directory.GetCurrentDirectory();
+        string GameProcName = "notepad";
+        string GameClassName = "Notepad";
         string version = "0.0.1 Alpha";
+        public GameWindowCheck GameWindowCheck = new GameWindowCheck();
+        public KeyBoardHook KeyBoardHook = new KeyBoardHook();
+        public InputWindow InputWindow = new InputWindow();
+
         public MainWindow()
         {
             InitializeComponent();
             Loaded += new RoutedEventHandler(MainWindow1_Loaded);
-            this.MainWindow1.Title = LanguageResources["Windows_Title"] + " " + version;
+            MainWindow1.Title = LanguageResources["Windows_Title"] + " " + version;
+            //InputWindow.Load();
+            //GameWindowCheck.InputWindowHwnd = new WindowInteropHelper(InputWindow).Handle.ToInt32();
+
         }
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
         {
@@ -48,7 +59,7 @@ namespace FactorioHelper
             Dictionary<string, object> PlayerData = Json.Deserialize(readJSONFile(GameDataPath + "player-data.json")) as Dictionary<string, object>;
             PlayerData = PlayerData["last-played-version"] as Dictionary<string, object>;
             String GameVersion = PlayerData["game_version"] as string;
-            this.GameInfo_GameVersion.Content = GameVersion;
+            GameInfo_GameVersion.Content = GameVersion;
 
             // 检测游戏状态
             DispatcherTimer GameStatusTimer = new DispatcherTimer()
@@ -65,19 +76,22 @@ namespace FactorioHelper
         /// <param name="e"></param>
         private void CheckGameStatus(object sender, EventArgs e)
         {
-            if (Process.GetProcessesByName("factorio").Length != 0)
+            if (Process.GetProcessesByName(GameProcName).Length != 0)
             {
-                this.GameInfo_GameStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
-                this.GameInfo_GameStatus.Content = LanguageResources["GameInfo_GameStatusOn"];
-                this.GameInfo_KillGame.IsEnabled = true;
-                this.GameStatus = true;
+                GameInfo_GameStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
+                GameInfo_GameStatus.Content = LanguageResources["GameInfo_GameStatusOn"];
+                GameInfo_KillGame.IsEnabled = true;
+                GameInfo_ChineseInputButton.IsEnabled = true;
+                GameStatus = true;
             }
             else
             {
-                this.GameInfo_GameStatus.Foreground = new SolidColorBrush(Color.FromRgb(200, 0, 0));
-                this.GameInfo_GameStatus.Content = LanguageResources["GameInfo_GameStatusOff"];
-                this.GameInfo_KillGame.IsEnabled = false;
-                this.GameStatus = false;
+                GameInfo_GameStatus.Foreground = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                GameInfo_GameStatus.Content = LanguageResources["GameInfo_GameStatusOff"];
+                GameInfo_KillGame.IsEnabled = false;
+                GameInfo_ChineseInputButton.IsEnabled = false;
+                GameStatus = false;
+                InputMethodPlusSwitch(false);
             }
 
         }
@@ -125,7 +139,7 @@ namespace FactorioHelper
         {
             try
             {
-                Process[] p = Process.GetProcessesByName("factorio");
+                Process[] p = Process.GetProcessesByName(GameProcName);
                 p[0].Kill();
                 MessageBox.Show("游戏已强制退出！");
                 //GetProcess();
@@ -138,29 +152,57 @@ namespace FactorioHelper
 
         private void GameInfo_ChineseInputButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ChineseInputStatus)
-            {
+            InputMethodPlusSwitch(!ChineseInputStatus);
+        }
+        private void InputMethodPlusSwitch(bool Operating)
+        {
+            if (Operating)
+            {   // 开启输入插件
                 if (GameStatus)
-                {
-                    GameInfo_ChineseInputButton.Content = LanguageResources["GameInfo_ChineseInputButtonOn"];
-                    GameInfo_ChineseInputStatus.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-                    GameInfo_ChineseInputStatus.Content = LanguageResources["GameInfo_ChineseInputStatusOn"];
-                    ChineseInputStatus = false;
+                {   // 游戏运行时
+                    GameWindowCheck.GameWindowHwnd = GetHwnd(GameClassName, null);
+                    if(GameWindowCheck.GameWindowHwnd != 0)
+                    {
+                        GameInfo_ChineseInputButton.Content = LanguageResources["GameInfo_ChineseInputButtonOff"];
+                        GameInfo_ChineseInputStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
+                        GameInfo_ChineseInputStatus.Content = LanguageResources["GameInfo_ChineseInputStatusOn"];
+                        ChineseInputStatus = true;
+                        KeyBoardHook.HookStart();
+                    }
+                    else
+                    {
+                        MessageBox.Show("检测不到游戏窗口，无法开启输入辅助！");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show((string)LanguageResources["GameInfoTable_Game_Status_Off"]);
+                    MessageBox.Show("游戏未运行，无法开启输入辅助！");
                 }
             }
             else
+            {   // 关闭输入插件
+                GameInfo_ChineseInputButton.Content = LanguageResources["GameInfo_ChineseInputButtonOn"];
+                GameInfo_ChineseInputStatus.Foreground = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                GameInfo_ChineseInputStatus.Content = LanguageResources["GameInfo_ChineseInputStatusOff"];
+                ChineseInputStatus = false;
+                KeyBoardHook.HookStop();
+            }
+
+        }
+        private int GetHwnd(string winClass,string winName)
+        {
+            IntPtr winHwnd = new IntPtr(0);
+            winHwnd = GameWindowCheck.FindWindow(winClass, winName);
+            
+            if (winHwnd.ToInt32() != 0)
             {
-                GameInfo_ChineseInputButton.Content = LanguageResources["GameInfo_ChineseInputButtonOff"];
-                GameInfo_ChineseInputStatus.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
-                GameInfo_ChineseInputStatus.Content = LanguageResources["GameInfo_ChineseInputStatusOn"];
-                ChineseInputStatus = true;
+                return winHwnd.ToInt32();
+            }
+            else
+            {
+                return 0;
             }
         }
-
         private void ServerHelper_ResetConfig_Click(object sender, RoutedEventArgs e)
         {
             ServerHelper_ServerNameTextBox.Text = "Factorio Server";
@@ -276,6 +318,11 @@ namespace FactorioHelper
         private void GameInfo_OpenGameDataButton_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("explorer.exe", this.GameDataPath);
+        }
+
+        private void MainWindow1_Unloaded(object sender, RoutedEventArgs e)
+        {
+            InputWindow.Close();
         }
     }
 }

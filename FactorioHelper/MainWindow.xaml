@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FactorioHelper"
         mc:Ignorable="d"
-        Title="{DynamicResource Windows_Title}" Height="480" Width="640" Loaded="MainWindow1_Loaded" MaxWidth="640" MaxHeight="480" MinWidth="640" MinHeight="480">
+        Title="{DynamicResource Windows_Title}" Height="480" Width="640" Loaded="MainWindow1_Loaded" MaxWidth="640" MaxHeight="480" MinWidth="640" MinHeight="480" Unloaded="MainWindow1_Unloaded">
 
     <TabControl x:Name="MainTab" HorizontalAlignment="Left" Height="449" VerticalAlignment="Top" Width="632" Background="#FFE5E5E5">
         <TabItem x:Name="Table_GameInfo" Header="{DynamicResource Table_GameInfo}">
             <Grid Background="#FFE5E5E5">
                 <Label x:Name="GameInfo_GameStatusText" Content="{DynamicResource GameInfo_GameStatusText}" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="159"/>
-                <Label x:Name="GameInfo_GameStatus" Content="{DynamicResource GameInfo_GameStatusOff}" HorizontalAlignment="Left" Margin="169,23,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="GameInfo_GameStatus" Content="{DynamicResource GameInfo_GameStatusOff}" HorizontalAlignment="Left" Margin="169,23,0,0" VerticalAlignment="Top" Foreground="#FFC80000"/>
                 <Button x:Name="GameInfo_KillGame" Content="{DynamicResource GameInfo_KillGame}" HorizontalAlignment="Left" Margin="324,26,0,0" VerticalAlignment="Top" Width="122" Click="GameInfoTable_KillGameButton_Click"/>
                 <Label x:Name="GameInfo_GameVersionText" Content="{DynamicResource GameInfo_GameVersionText}" HorizontalAlignment="Left" Margin="0,48,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="159"/>
                 <Label x:Name="GameInfo_GameVersion" Content="GameVersion" HorizontalAlignment="Left" Margin="169,48,0,0" VerticalAlignment="Top" Foreground="#FF000CFF"/>
                 <Label x:Name="GameInfo_ChineseInputText" Content="{DynamicResource GameInfo_ChineseInputText}" HorizontalAlignment="Left" Margin="0,73,0,0" VerticalAlignment="Top" Width="159" HorizontalContentAlignment="Right"/>
-                <Label x:Name="GameInfo_ChineseInputStatus" Content="{DynamicResource GameInfo_ChineseInputStatusOff}" HorizontalAlignment="Left" Margin="169,73,0,0" VerticalAlignment="Top" Foreground="Blue"/>
-                <Button x:Name="GameInfo_ChineseInputButton" Content="{DynamicResource GameInfo_ChineseInputButtonOff}" HorizontalAlignment="Left" Margin="324,76,0,0" VerticalAlignment="Top" Width="122" Click="GameInfo_ChineseInputButton_Click"/>
+                <Label x:Name="GameInfo_ChineseInputStatus" Content="{DynamicResource GameInfo_ChineseInputStatusOff}" HorizontalAlignment="Left" Margin="169,73,0,0" VerticalAlignment="Top" Foreground="#FFC80000"/>
+                <Button x:Name="GameInfo_ChineseInputButton" Content="{DynamicResource GameInfo_ChineseInputButtonOn}" HorizontalAlignment="Left" Margin="324,76,0,0" VerticalAlignment="Top" Width="122" Click="GameInfo_ChineseInputButton_Click"/>
                 <Button x:Name="GameInfo_OpenGameDataButton" Content="{DynamicResource GameInfo_Open_Game_Data_Folder}" HorizontalAlignment="Left" Margin="222,146,0,0" VerticalAlignment="Top" Width="160" Height="30" Click="GameInfo_OpenGameDataButton_Click"/>
             </Grid>
         </TabItem>
